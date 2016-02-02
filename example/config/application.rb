@@ -8,6 +8,9 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Example
   class Application < Rails::Application
+    if config.respond_to?("eager_load=")
+      config.eager_load = false
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
