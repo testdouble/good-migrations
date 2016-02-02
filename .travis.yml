@@ -4,7 +4,7 @@ rvm:
   - 2.2.3
 before_install:
   - printenv
-  - cd example && bundle install && cd ..
+  - cd example && BUNDLE_GEMFILE="Gemfile" bundle install && cd ..
 env:
   - RAILS_VERSION=3.1.0
   - RAILS_VERSION=4.0.0
