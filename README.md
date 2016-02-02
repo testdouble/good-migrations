@@ -1,36 +1,53 @@
-# GoodMigrations
+# good_migrations
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/good_migrations`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'good_migrations'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install good_migrations
+**tl;dr: prevent loading app code from migrations by adding `good_migrations` to
+your Gemfile**
 
 ## Usage
 
-TODO: Write usage instructions here
+Add good_migrations to your gemfile:
 
-## Development
+``` ruby
+gem 'good_migrations'
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+And you're done! That's it.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-## Contributing
+## Background
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/good_migrations.
+Over the life of your [Ruby on Rails](http://rubyonrails.org) application, your
+app's models will change dramatically, but according to the [Rails
+guides](http://guides.rubyonrails.org/active_record_migrations.html#changing-existing-migrations), your migrations _shouldn't_:
 
+> In general, editing existing migrations is not a good idea. You will be
+creating extra work for yourself and your co-workers and cause major headaches
+if the existing version of the migration has already been run on production
+machines. Instead, you should write a new migration that performs the changes you
+require.
+
+That means that if your migrations reference the ActiveRecord model objects
+you've defined in `app/models`, your old migrations are likely to break. That's
+not good.
+
+By adding this gem to your project's `Gemfile`, autoloading paths inside 'app/`
+while running any of the `db:migrate` Rake tasks will raise an error, explaining
+the dangers inherent.
+
+Some will reply, "who cares if old migrations are broken? I can still run `rake
+db:setup` because I have a `db/schema.rb file". The problem with this approach
+is that, so long as some migrations aren't runnable, the `db/schema.rb` can't
+be regenerated from scratch and its veracity can no longer be trusted. In
+practice, we've seen numerous projects accumulate cruft in `db/schema.rb` as the
+result of erroneous commits to work-in-progress migrations, leading to the
+development and test databases falling out of sync with production. That's not
+good!
+
+## Options
+
+There's no public API to this gem. If you want to work around its behavior, you
+have a few options:
+
+1. Run the command with the env var `GOOD_MIGRATIONS=skip`
+2. Explicitly `require` the app code you need in your migration
+3. Remove the gem from your project
