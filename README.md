@@ -1,7 +1,10 @@
 # good_migrations
 
-**tl;dr: prevent loading app code from migrations by adding `good_migrations` to
-your Gemfile**
+[![Build Status](https://travis-ci.org/testdouble/good-migrations.svg?branch=master)](https://travis-ci.org/testdouble/good-migrations)
+
+This gem prevents Rails from auto-loading app code while it's running migrations,
+preventing the common mistake of referencing ActiveRecord models from migration
+code.
 
 ## Usage
 
