@@ -3,7 +3,7 @@ sudo: false
 rvm:
   - 2.2.3
 before_script:
-  - cd example && bundle install
+  - cd example && bundle install && cd ..
 env:
   - RAILS_ENV=3.1.0
   - RAILS_ENV=4.0.0
