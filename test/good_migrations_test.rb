@@ -38,7 +38,7 @@ private
     script = <<-SCRIPT
       export BUNDLE_GEMFILE="Gemfile"
       export RAILS_ENV="development"
-      rm -f Gemfile.lock
+      rm -f Gemfile.lock db/*.sqlite3
       bundle install
       #{command}
     SCRIPT
