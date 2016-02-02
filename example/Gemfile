@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 rails_version = ENV['RAILS_VERSION'] || '3.1.0'
+puts "<---- Installing Rails at version '#{rails_version}'"
 gem 'rails', rails_version
 
 gem 'good_migrations', :path => '..'
