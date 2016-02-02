@@ -15,13 +15,13 @@ class GoodMigrationsTest < Minitest::Test
   def test_good_migration_does_not_blow_up
     stdout, stderr, status = shell("bundle exec rake db:drop db:create db:migrate VERSION=20160202163803")
 
-    assert_equal 0, status
+    assert_equal 0, status.exitstatus
   end
 
   def test_rake_full_migrate_blows_up
     stdout, stderr, status = shell("bundle exec rake db:drop db:create db:migrate")
 
-    refute_equal 0, status
+    refute_equal 0, status.exitstatus
     assert_match /GoodMigrations::LoadError: Rails attempted to auto-load:/, stderr
     assert_match /example\/app\/models\/pant.rb/, stderr
   end
@@ -29,7 +29,7 @@ class GoodMigrationsTest < Minitest::Test
   def test_env_flag_prevents_explosion
     stdout, stderr, status = shell("GOOD_MIGRATIONS=skip bundle exec rake db:drop db:create db:migrate")
 
-    assert_equal 0, status
+    assert_equal 0, status.exitstatus
   end
 
 private
@@ -41,6 +41,8 @@ private
       bundle install
       #{command}
     SCRIPT
-    Open3.capture3(script, :chdir => "example")
+    Bundler.with_clean_env do
+      Open3.capture3(script, :chdir => "example")
+    end
   end
 end
