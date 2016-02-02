@@ -51,3 +51,9 @@ have a few options:
 1. Run the command with the env var `GOOD_MIGRATIONS=skip`
 2. Explicitly `require` the app code you need in your migration
 3. Remove the gem from your project
+
+## Acknowledgements
+
+Credit for figuring out where to hook into the ActiveSupport autoloader goes
+to [@tenderlove](https://github.com/tenderlove) for [this
+gist](https://gist.github.com/tenderlove/44447d1b1e466a28eb3f).
