@@ -37,6 +37,7 @@ private
   def shell(command)
     script = <<-SCRIPT
       export BUNDLE_GEMFILE="Gemfile"
+      export RAILS_ENV="development"
       rm -f Gemfile.lock
       bundle install
       #{command}
