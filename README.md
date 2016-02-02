@@ -33,7 +33,7 @@ That means that if your migrations reference the ActiveRecord model objects
 you've defined in `app/models`, your old migrations are likely to break. That's
 not good.
 
-By adding this gem to your project's `Gemfile`, autoloading paths inside 'app/`
+By adding this gem to your project's `Gemfile`, autoloading paths inside `'app/'`
 while running any of the `db:migrate` Rake tasks will raise an error, explaining
 the dangers inherent.
 
