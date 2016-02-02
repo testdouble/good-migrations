@@ -3,8 +3,7 @@ sudo: false
 rvm:
   - 2.2.3
 before_install:
-  - printenv
-  - cd example && BUNDLE_GEMFILE="Gemfile" bundle install && cd ..
+  - BUNDLE_GEMFILE="example/Gemfile" bundle install
 env:
   - RAILS_VERSION=3.1.0
   - RAILS_VERSION=4.0.0
