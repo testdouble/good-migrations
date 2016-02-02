@@ -38,7 +38,7 @@ while running any of the `db:migrate` Rake tasks will raise an error, explaining
 the dangers inherent.
 
 Some will reply, "who cares if old migrations are broken? I can still run `rake
-db:setup` because I have a `db/schema.rb file". The problem with this approach
+db:setup` because I have a `db/schema.rb` file". The problem with this approach
 is that, so long as some migrations aren't runnable, the `db/schema.rb` can't
 be regenerated from scratch and its veracity can no longer be trusted. In
 practice, we've seen numerous projects accumulate cruft in `db/schema.rb` as the
