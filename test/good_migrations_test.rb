@@ -21,9 +21,9 @@ class GoodMigrationsTest < Minitest::Test
   def test_rake_full_migrate_blows_up
     stdout, stderr, status = shell("bundle exec rake db:drop db:create db:migrate")
 
-    refute_equal 0, status.exitstatus
     assert_match /GoodMigrations::LoadError: Rails attempted to auto-load:/, stderr
     assert_match /example\/app\/models\/pant.rb/, stderr
+    refute_equal 0, status.exitstatus
   end
 
   def test_env_flag_prevents_explosion
