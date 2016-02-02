@@ -46,6 +46,9 @@ result of erroneous commits to work-in-progress migrations, leading to the
 development and test databases falling out of sync with production. That's not
 good!
 
+For more background, see the last section of this blog post on [healthy migration
+habits](http://blog.testdouble.com/posts/2014-11-04-healthy-migration-habits.html)
+
 ## Options
 
 There's no public API to this gem. If you want to work around its behavior, you
