@@ -2,3 +2,6 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
+
+# Not locking, because we'll be changing rails versions in CI
+/Gemfile.lock
