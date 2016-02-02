@@ -1,5 +1,3 @@
 require "good_migrations/version"
-
-module GoodMigrations
-  # Your code goes here...
-end
+require "good_migrations/load_error"
+require "good_migrations/railtie" if defined?(Rails)

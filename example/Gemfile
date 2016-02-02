@@ -3,5 +3,7 @@ source 'http://rubygems.org'
 rails_version = ENV['RAILS_VERSION'] || '3.1.0'
 gem 'rails', rails_version
 
+gem 'good_migrations', :path => '..'
+
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
