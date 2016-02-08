@@ -68,5 +68,5 @@ gist](https://gist.github.com/tenderlove/44447d1b1e466a28eb3f).
 
 Because this gem works by monkey-patching the ActiveSupport auto-loader, it will
 not work if your Rails environment (development, by default) is configured to
-eager load your application's classes (See:
-[config.eager_load](http://edgeguides.rubyonrails.org/configuring.html#rails-general-configuration).
+eager load your application's classes (see:
+[config.eager_load](http://edgeguides.rubyonrails.org/configuring.html#rails-general-configuration)).
