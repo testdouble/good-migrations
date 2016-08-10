@@ -3,10 +3,13 @@ require 'good_migrations'
 
 namespace :good_migrations do
   task :disable_autoload do
+    puts "GOOD_MIGRATUONS@@@"
     next if ENV['GOOD_MIGRATIONS'] == "skip"
     ActiveSupport::Dependencies.class_eval do
       extend Module.new {
+        puts "exteding module"
         def load_file(path, const_paths = loadable_constants_for_path(path))
+          puts path
           if path.starts_with? File.join(Rails.application.root, 'app')
             raise GoodMigrations::LoadError, <<-ERROR
 Rails attempted to auto-load:
@@ -45,7 +48,7 @@ For more information, visit:
 
 https://github.com/testdouble/good-migrations
 
-ERROR
+            ERROR
           else
             super
           end
