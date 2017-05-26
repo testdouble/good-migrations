@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Prevents Rails from auto-loading app code in database migrations}
   spec.description   = %q{Referencing code in app/ from a database migration risks breaking the migration when your app code changes; this gem prevents that mistake}
   spec.homepage      = "https://github.com/testdouble/good-migrations"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
