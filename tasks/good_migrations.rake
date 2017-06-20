@@ -56,8 +56,13 @@ ERROR
 end
 
 Rake.application.in_namespace('db:migrate') do |namespace|
-  ([Rake::Task['db:migrate']] + namespace.tasks).each do |task|
-    task.prerequisites << "good_migrations:disable_autoload"
+  migration_tasks = [
+    Rake::Task['db:migrate'],
+    Rake::Task['db:forward'],
+    Rake::Task['db:rollback']
+  ] + namespace.tasks
+
+  migration_tasks.each do |task|
+    task.prerequisites << 'good_migrations:disable_autoload'
   end
 end
-
