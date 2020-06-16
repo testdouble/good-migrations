@@ -1,4 +1,4 @@
-class CreatePants < ActiveRecord::Migration
+class CreatePants < ActiveRecord::Migration[4.2]
   def change
     create_table :pants do |t|
       t.integer :length
