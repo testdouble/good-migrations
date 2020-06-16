@@ -1,4 +1,4 @@
 module GoodMigrations
-  class LoadError < ::LoadError
+  class LoadError < RuntimeError
   end
 end

@@ -1,4 +1,4 @@
-class ChangePants < ActiveRecord::Migration
+class ChangePants < ActiveRecord::Migration[4.2]
   class Pant < ActiveRecord::Base
   end
   def change
