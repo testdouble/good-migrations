@@ -42,7 +42,7 @@ module Example
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.autoloader = if RAILS::VERSION::MAJOR >= 6
+    config.autoloader = if Rails::VERSION::MAJOR >= 6
       :zeitwerk
     else
       :classic
