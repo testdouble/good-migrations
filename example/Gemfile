@@ -5,5 +5,8 @@ puts "<---- Installing Rails at version '#{rails_version}'"
 gem "rails", rails_version
 
 gem "good_migrations", path: ".."
+if /^[6789]/.match?(rails_version)
+  gem "zeitwerk", git: "https://github.com/fxn/zeitwerk", branch: "main" # "~> 2.5"
+end
 
 gem "sqlite3"
