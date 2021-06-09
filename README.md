@@ -16,6 +16,13 @@ Add good_migrations to your gemfile:
 gem 'good_migrations'
 ```
 
+If you are using the Zeitwerk autoloader you will also need version 2.5.0
+or later. Add this to your Gemfile to ensure you get the right version:
+
+``` ruby
+gem 'zeitwerk', '~> 2.5'
+```
+
 And you're done! That's it.
 
 
