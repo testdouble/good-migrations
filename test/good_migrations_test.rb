@@ -32,6 +32,13 @@ class GoodMigrationsTest < Minitest::Test
 
       assert_equal 0, status.exitstatus
     end
+
+    define_method "test_patch_is_disabled_after_migrations_finish_#{autoloader}" do
+      stdout, _, status = shell("AUTOLOADER=#{autoloader} bundle exec rake db:drop db:create db:migrate VERSION=20160202163803 load_pants")
+
+      assert_match "This many pants: 0 pants", stdout
+      assert_equal 0, status.exitstatus
+    end
   end
 
   private

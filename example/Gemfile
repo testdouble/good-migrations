@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
-rails_version = ENV["RAILS_VERSION"] || "~> 6.1"
-puts "<---- Installing Rails at version '#{rails_version}'"
-gem "rails", rails_version
+gem "rails", "~> 6.1"
 
 gem "good_migrations", path: ".."
 
 gem "sqlite3"
+
+gem "zeitwerk", github: "fxn/zeitwerk"
