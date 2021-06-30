@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-rails_version = ENV["RAILS_VERSION"] || "5.2.4.3"
+rails_version = ENV["RAILS_VERSION"] || "~> 6.1"
 puts "<---- Installing Rails at version '#{rails_version}'"
 gem "rails", rails_version
 
