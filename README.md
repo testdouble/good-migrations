@@ -1,16 +1,16 @@
 # good_migrations
 
-## **WARNING: good_migrations does not currently work with zeitwerk, the current autoloader implementation in Rails. See [#9](/issues/9)**
-
-[![Build Status](https://travis-ci.org/testdouble/good-migrations.svg?branch=main)](https://travis-ci.org/testdouble/good-migrations)
-
 This gem prevents Rails from auto-loading app code while it's running migrations,
 preventing the common mistake of referencing ActiveRecord models from migration
 code.
 
 ## Usage
 
-Add good_migrations to your gemfile:
+**HEADS UP: zeitwerk 2.5.0 is not yet released, so if you're using zeitwerk at
+all, the gem won't be able to ensure your migrations are safe and you'll see a
+warning to that effect**
+
+Add good_migrations to your Gemfile:
 
 ``` ruby
 gem 'good_migrations'
@@ -18,6 +18,15 @@ gem 'good_migrations'
 
 And you're done! That's it.
 
+## Prerequisites
+
+This gem requires that your app uses either of these autoloader strategies:
+
+* The classic `ActiveSupport::Dependencies` autoloader (e.g. `config.autoloader
+  = :classic`), which is going away with Rails 7
+* Version 2.5 or higher of the zeitwerk autoloader (e.g. `config.autoloader =
+  :zeitwerk`) If your app uses an earlier version of zeitwerk, you'll see a
+  warning every time `db:migrate` is run
 
 ## Background
 
