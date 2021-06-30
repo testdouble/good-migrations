@@ -12,24 +12,26 @@ class GoodMigrationsTest < Minitest::Test
     refute_nil ::GoodMigrations::VERSION
   end
 
-  def test_good_migration_does_not_blow_up
-    _, _, status = shell("bundle exec rake db:drop db:create db:migrate VERSION=20160202163803")
+  [:classic, :zeitwerk].each do |autoloader|
+    define_method "test_good_migration_does_not_blow_up_#{autoloader}" do
+      _, _, status = shell("AUTOLOADER=#{autoloader} bundle exec rake db:drop db:create db:migrate VERSION=20160202163803")
 
-    assert_equal 0, status.exitstatus
-  end
+      assert_equal 0, status.exitstatus
+    end
 
-  def test_rake_full_migrate_blows_up
-    _, stderr, status = shell("bundle exec rake db:drop db:create db:migrate")
+    define_method "test_rake_full_migrate_blows_up_#{autoloader}" do
+      _, stderr, status = shell("AUTOLOADER=#{autoloader} bundle exec rake db:drop db:create db:migrate")
 
-    assert_match(/GoodMigrations::LoadError: Rails attempted to auto-load:/, stderr)
-    assert_match(/example\/app\/models\/pant.rb/, stderr)
-    refute_equal 0, status.exitstatus
-  end
+      assert_match(/GoodMigrations::LoadError: Rails attempted to auto-load:/, stderr)
+      assert_match(/example\/app\/models\/pant.rb/, stderr)
+      refute_equal 0, status.exitstatus
+    end
 
-  def test_env_flag_prevents_explosion
-    _, _, status = shell("GOOD_MIGRATIONS=skip bundle exec rake db:drop db:create db:migrate")
+    define_method "test_env_flag_prevents_explosion_#{autoloader}" do
+      _, _, status = shell("AUTOLOADER=#{autoloader} GOOD_MIGRATIONS=skip bundle exec rake db:drop db:create db:migrate")
 
-    assert_equal 0, status.exitstatus
+      assert_equal 0, status.exitstatus
+    end
   end
 
   private

@@ -41,5 +41,7 @@ module Example
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    config.autoloader = ENV["AUTOLOADER"] == "zeitwerk" ? :zeitwerk : :classic
   end
 end
