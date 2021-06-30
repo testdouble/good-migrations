@@ -1,8 +1,0 @@
-language: ruby
-sudo: false
-rvm:
-  - 2.7.1
-before_install:
-  - BUNDLE_GEMFILE="example/Gemfile" bundle install
-env:
-  - RAILS_VERSION=5.2.4.3
