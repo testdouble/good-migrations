@@ -6,10 +6,6 @@ code.
 
 ## Usage
 
-**HEADS UP: zeitwerk 2.5.0 is not yet released, so if you're using zeitwerk at
-all, the gem won't be able to ensure your migrations are safe and you'll see a
-warning to that effect**
-
 Add good_migrations to your Gemfile:
 
 ``` ruby
@@ -24,7 +20,7 @@ This gem requires that your app uses either of these autoloader strategies:
 
 * The classic `ActiveSupport::Dependencies` autoloader (e.g. `config.autoloader
   = :classic`), which is going away with Rails 7
-* Version 2.5 or higher of the zeitwerk autoloader (e.g. `config.autoloader =
+* **Version 2.5 or higher** of the Zeitwerk autoloader (e.g. `config.autoloader =
   :zeitwerk`) If your app uses an earlier version of zeitwerk, you'll see a
   warning every time `db:migrate` is run
 
