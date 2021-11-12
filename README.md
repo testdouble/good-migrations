@@ -56,14 +56,37 @@ good!
 For more background, see the last section of this blog post on [healthy migration
 habits](http://blog.testdouble.com/posts/2014-11-04-healthy-migration-habits.html)
 
-## Options
+## Adding to an existing app
 
-There's no public API to this gem. If you want to work around its behavior, you
-have a few options:
+If you add this to an existing app where past migrations had this problem, then those
+past migration will be failing.
 
-1. Run the command with the env var `GOOD_MIGRATIONS=skip`
-2. Explicitly `require` the app code you need in your migration
-3. Remove the gem from your project
+You have 2 options:
+* Rewrite those past migrations to not use external code
+* Use the `permit_autoloading_before_date` configuration (see below) to permit autoloading for
+  these older migrations
+
+## Configuration
+
+To configure, add those lines to an initializer (such as `config/initializers/config_good_migrations.rb`)
+ 
+#### permit_autoloading_before_date configuration
+
+```ruby
+GoodMigrations::Configuration.permit_autoloading_before_date = "2021-06-01"
+```
+
+Migrations with timestamps (the numbers at the beginning of the file name)
+from before this configured time will be allowed to perform autoloading, bypassing the mechanism of this gem. Accepts:
+* nil: meaning never permit autoloading
+* String accepted by `Time.parse`, such as '20211103150610', '20211103_150610' and '2021-01-01'
+* object responding to `to_time`, such as Date and Time
+
+## Working around good_migrations
+
+You can explicitly `require` the app code that you need in your migration.
+
+If needed, it is possible to run a command with `good_migrations` disabled by running the command with the env var `GOOD_MIGRATIONS=skip`.
 
 ## Acknowledgements
 
