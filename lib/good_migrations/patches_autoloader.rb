@@ -20,8 +20,8 @@ module GoodMigrations
           @disabled = false
           Rails.autoloaders.each do |loader|
             loader.on_load do |_, _, path|
-              if !GoodMigrations::Logic.permit_autoloading_of_path?(path) &&
-                  !GoodMigrations::PatchesAutoloader.instance.disabled?
+              if !GoodMigrations::PatchesAutoloader.instance.disabled? &&
+                  !GoodMigrations::Logic.permit_autoloading_of_path?(path)
                 GoodMigrations::Logic.prevent_load!(path)
               end
             end
@@ -44,8 +44,8 @@ module GoodMigrations
         ActiveSupport::Dependencies.class_eval do
           extend Module.new {
             def load_file(path, const_paths = loadable_constants_for_path(path))
-              if !GoodMigrations::Logic.permit_autoloading_of_path?(path) &&
-                  !GoodMigrations::PatchesAutoloader.instance.disabled?
+              if !GoodMigrations::PatchesAutoloader.instance.disabled? &&
+                  !GoodMigrations::Logic.permit_autoloading_of_path?(path)
                 GoodMigrations::Logic.prevent_load!(path)
               else
                 super
