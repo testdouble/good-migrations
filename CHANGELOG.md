@@ -1,5 +1,7 @@
 # CHANGELOG
 
+* Add `permit_autoloading_before_date` configuration
+
 ## 0.1.0
 
 * Add support for zeitwerk@2.5 & higher
