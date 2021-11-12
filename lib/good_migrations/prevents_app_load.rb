@@ -5,7 +5,7 @@ module GoodMigrations
     end
 
     def self.prevent_load!(path)
-      raise GoodMigrations::LoadError, <<~ERROR
+      raise GoodMigrations::LoadError, <<-ERROR.strip_heredoc
         Rails attempted to auto-load:
 
         #{path}

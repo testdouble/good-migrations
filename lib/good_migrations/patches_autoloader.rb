@@ -27,7 +27,7 @@ module GoodMigrations
             end
           end
         else
-          warn <<~UNSUPPORTED
+          warn <<-UNSUPPORTED.strip_heredoc
             WARNING: good_migrations is unable to ensure that your migrations are
               not inadvertently loading application code, because your application
               uses the zeitwerk autoloader (`config.autoloader = :zeitwerk`), but
