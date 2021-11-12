@@ -1,5 +1,5 @@
 module GoodMigrations
-  class PreventsAppLoad
+  class Logic
     def self.app_path?(path)
       path.starts_with? File.join(Rails.application.root, "app")
     end
