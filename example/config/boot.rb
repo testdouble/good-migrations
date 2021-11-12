@@ -13,3 +13,4 @@ if File.exist?(gemfile)
     exit!
   end
 end
+require "bootsnap/setup"

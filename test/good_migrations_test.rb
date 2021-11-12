@@ -47,8 +47,7 @@ class GoodMigrationsTest < Minitest::Test
     script = <<-SCRIPT
       export BUNDLE_GEMFILE="Gemfile"
       export RAILS_ENV="development"
-      rm -f Gemfile.lock db/*.sqlite3
-      bundle install
+      rm -f db/*.sqlite3
       #{command}
     SCRIPT
     Bundler.with_unbundled_env do
