@@ -1,8 +1,8 @@
 require "time"
 
-require "good_migrations/version"
-require "good_migrations/load_error"
-require "good_migrations/configuration"
-require "good_migrations/patches_autoloader"
-require "good_migrations/logic"
-require "good_migrations/railtie" if defined?(Rails)
+require_relative "good_migrations/version"
+require_relative "good_migrations/load_error"
+require_relative "good_migrations/configuration"
+require_relative "good_migrations/patches_autoloader"
+require_relative "good_migrations/logic"
+require_relative "good_migrations/railtie" if defined?(Rails)
