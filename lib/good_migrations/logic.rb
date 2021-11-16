@@ -1,29 +1,9 @@
 module GoodMigrations
   class Logic
-    def self.currently_executing_migration_path
-      migrate_dir_path = Rails.root.join("db/migrate/").to_s
-      loc = caller.detect { |loc| loc.start_with?(migrate_dir_path) }
-      return if loc.nil?
-      loc.partition(":").first
-    end
-
-    def self.extract_time_from_migration_path(path)
-      timestamp_string = File.basename(path).partition("_").first
-      return if timestamp_string.size != 14
-      Time.parse(timestamp_string)
-    end
-
     def self.permit_autoloading_based_on_migration_time?
-      return false if GoodMigrations::Configuration.permit_autoloading_before_date.nil?
-
-      migration_path = currently_executing_migration_path
-      return false if migration_path.nil?
-
-      migration_time = extract_time_from_migration_path(migration_path)
-      # Or should this raise?
-      return false if migration_time.nil?
-
-      migration_time < GoodMigrations::Configuration.permit_autoloading_before_date
+      permit_before_date = GoodMigrations::Configuration.permit_autoloading_before_date
+      migration_details = GoodMigrations::MigrationDetails.currently_executing
+      migration_details.considered_before?(permit_before_date)
     end
 
     def self.permit_autoloading_of_path?(path)
