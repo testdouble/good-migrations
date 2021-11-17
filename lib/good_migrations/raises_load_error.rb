@@ -1,20 +1,6 @@
 module GoodMigrations
-  class Logic
-    def self.permit_autoloading_based_on_migration_time?
-      permit_before_date = GoodMigrations.config.permit_autoloading_before
-      migration_details = GoodMigrations::MigrationDetails.currently_executing
-      migration_details.considered_before?(permit_before_date)
-    end
-
-    def self.permit_autoloading_of_path?(path)
-      !app_path?(path) || permit_autoloading_based_on_migration_time?
-    end
-
-    def self.app_path?(path)
-      path.starts_with? File.join(Rails.application.root, "app")
-    end
-
-    def self.prevent_load!(path)
+  class RaisesLoadError
+    def raise!(path)
       raise GoodMigrations::LoadError, <<-ERROR.strip_heredoc
         Rails attempted to auto-load:
 

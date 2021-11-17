@@ -5,11 +5,16 @@ module GoodMigrations
     end
 
     def initialize
+      @permits_autoload = PermitsAutoload.new
+      @raises_load_error = RaisesLoadError.new
+
       @disabled = false
     end
 
-    def disabled?
-      @disabled
+    def prevent_autoload_if_necessary!(path)
+      return if @disabled || @permits_autoload.permit?(path)
+
+      @raises_load_error.raise!(path)
     end
 
     def patch!
@@ -20,10 +25,7 @@ module GoodMigrations
           @disabled = false
           Rails.autoloaders.each do |loader|
             loader.on_load do |_, _, path|
-              if !GoodMigrations::PatchesAutoloader.instance.disabled? &&
-                  !GoodMigrations::Logic.permit_autoloading_of_path?(path)
-                GoodMigrations::Logic.prevent_load!(path)
-              end
+              GoodMigrations::PatchesAutoloader.instance.prevent_autoload_if_necessary!(path)
             end
           end
         else
@@ -44,12 +46,8 @@ module GoodMigrations
         ActiveSupport::Dependencies.class_eval do
           extend Module.new {
             def load_file(path, const_paths = loadable_constants_for_path(path))
-              if !GoodMigrations::PatchesAutoloader.instance.disabled? &&
-                  !GoodMigrations::Logic.permit_autoloading_of_path?(path)
-                GoodMigrations::Logic.prevent_load!(path)
-              else
-                super
-              end
+              GoodMigrations::PatchesAutoloader.instance.prevent_autoload_if_necessary!(path)
+              super
             end
           }
         end
