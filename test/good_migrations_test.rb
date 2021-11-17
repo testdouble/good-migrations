@@ -35,7 +35,7 @@ class GoodMigrationsTest < Minitest::Test
     end
 
     define_method "test_permit_autoload_before_date_#{autoloader}" do
-      _, stderr, status = shell("PERMIT_BEFORE_DATE=20170101000000 AUTOLOADER=#{autoloader} bundle exec rake db:drop db:create db:migrate")
+      _, stderr, status = shell("PERMIT_AUTOLOADING_BEFORE=20170101000000 AUTOLOADER=#{autoloader} bundle exec rake db:drop db:create db:migrate")
 
       assert_match(/GoodMigrations::LoadError: Rails attempted to auto-load:/, stderr)
       assert_match(/20170102150000_change_shirts_dangerously.rb/, stderr)

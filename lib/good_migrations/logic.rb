@@ -1,7 +1,7 @@
 module GoodMigrations
   class Logic
     def self.permit_autoloading_based_on_migration_time?
-      permit_before_date = GoodMigrations.config.permit_autoloading_before_date
+      permit_before_date = GoodMigrations.config.permit_autoloading_before
       migration_details = GoodMigrations::MigrationDetails.currently_executing
       migration_details.considered_before?(permit_before_date)
     end

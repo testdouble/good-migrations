@@ -6,7 +6,7 @@ code.
 
 ## Usage
 
-Add good_migrations to your Gemfile:
+Add `good_migrations` to your Gemfile:
 
 ``` ruby
 gem 'good_migrations'
@@ -58,45 +58,68 @@ habits](http://blog.testdouble.com/posts/2014-11-04-healthy-migration-habits.htm
 
 ## Adding to an existing app
 
-If you add this to an existing app where past migrations had this problem, then those
-past migration will be failing.
+If you add `good_migrations` to an existing application **and** any of those
+migrations relied on auto-loading code from `app/`, then you'll see errors
+raised whenever those migrations are run.
 
-You have 2 options:
-* Rewrite those past migrations to not use external code
-* Use the `permit_autoloading_before_date` configuration (see below) to permit autoloading for
-  these older migrations
+You have several options if this happens:
+
+* If you're confident that every long-lasting environment has run the latest
+  migrations, you could consider squashing your existing migrations into a
+  single migration file that reflects the current state of your schema. This is
+  a tricky procedure to pull off in complex apps, and can require extra
+  coordination in cases where a high number of contributors are working on the
+  application simultaneously. The
+  [squasher](https://github.com/jalkoby/squasher) gem may be able to help.
+* You can rewrite those past migrations to inline any application code inside
+  the migration's namespace. One way to do this is to run migrations until they
+  fail, check out the git ref of the failing migration so the codebase is
+  rewound to where it was at the time the migration was written, and finally
+  inline the necessary app code to get the migration passing before checking out
+  your primary branch. Rewriting any migration introduces risk of the resulting
+  schema diverging from production, so this requires significant care and
+  attention
+* If neither of the above options are feasible, you can configure the
+  `good_migrations` gem to ignore migrations prior to a specified date with the
+  [permit_autoloading_before](#permit_autoloading_before-configuration)
+  option, which will effectively disable the gem's auto-loading prevention for
+  all migrations prior to a specified time
 
 ## Configuration
 
-To configure, add those lines to an initializer (such as `config/initializers/config_good_migrations.rb`)
- 
-#### permit_autoloading_before_date configuration
+To configure the gem, call `GoodMigrations.config` at some point as Rails is
+loading (a good idea would be an initializer like
+`config/initializers/good_migrations.rb`)
 
 ```ruby
-GoodMigrations::Configuration.permit_autoloading_before_date = "2021-06-01"
+GoodMigrations.config do |config|
+  # Setting `permit_autoloading_before` will DISABLE good_migrations for
+  # any migrations before the given time. Don't set this unless you need to!
+  #
+  # Accepts parseable time strings as well as `Date` & `Time` objects
+  # config.permit_autoloading_before = "20140728132502"
+end
 ```
-
-Migrations with timestamps (the numbers at the beginning of the file name)
-from before this configured time will be allowed to perform autoloading, bypassing the mechanism of this gem. Accepts:
-* nil: meaning never permit autoloading
-* String accepted by `Time.parse`, such as '20211103150610', '20211103_150610' and '2021-01-01'
-* object responding to `to_time`, such as Date and Time
 
 ## Working around good_migrations
 
-You can explicitly `require` the app code that you need in your migration.
+The gem only prevents auto-loading, so you can always can explicitly `require`
+the app code that you need in your migration.
 
-If needed, it is possible to run a command with `good_migrations` disabled by running the command with the env var `GOOD_MIGRATIONS=skip`.
+If needed, it is possible to run a command with `good_migrations` disabled by
+running the command with the env var `GOOD_MIGRATIONS=skip`.
 
 ## Acknowledgements
 
 Credit for figuring out where to hook into the ActiveSupport autoloader goes
 to [@tenderlove](https://github.com/tenderlove) for [this
-gist](https://gist.github.com/tenderlove/44447d1b1e466a28eb3f).
+gist](https://gist.github.com/tenderlove/44447d1b1e466a28eb3f). And thanks to
+[@fxn](https://github.com/fxn) for implementing the hook necessary for zeitwerk
+support to be possible.
 
 ## Caveats
 
-Because this gem works by monkey-patching the ActiveSupport auto-loader, it will
-not work if your Rails environment (development, by default) is configured to
-eager load your application's classes (see:
+Because this gem works by augmenting the auto-loader, it will not work if your
+Rails environment (development, by default) is configured to eager load your
+application's classes (see:
 [config.eager_load](http://edgeguides.rubyonrails.org/configuring.html#rails-general-configuration)).

@@ -1,6 +1,10 @@
 module GoodMigrations
-  def self.config
+  def self.config(&blk)
     @configuration ||= Configuration.new
+
+    @configuration.tap do |config|
+      blk&.call(config)
+    end
   end
 
   class Configuration
@@ -10,8 +14,8 @@ module GoodMigrations
     #   nil (default): never permit autoload
     #   String accepted by `Time.parse`, such as: 20211103150610 or 20211103_150610
     #   object responding to `to_time`, such as Date and Time
-    attr_reader :permit_autoloading_before_date
-    def permit_autoloading_before_date=(value)
+    attr_reader :permit_autoloading_before
+    def permit_autoloading_before=(value)
       case value
       when nil
         # Stay nil
@@ -21,14 +25,14 @@ module GoodMigrations
         if value.respond_to?(:to_time)
           value = value.to_time
         else
-          raise "Received an invalid value for permit_autoloading_before_date: #{value.inspect}"
+          raise "Received an invalid value for permit_autoloading_before: #{value.inspect}"
         end
       end
-      @permit_autoloading_before_date = value
+      @permit_autoloading_before = value
     end
 
     def initialize
-      @permit_autoloading_before_date = nil
+      @permit_autoloading_before = nil
     end
   end
 end
