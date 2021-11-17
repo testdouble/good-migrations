@@ -1,5 +1,7 @@
 # CHANGELOG
 
+## 0.2.0
+
 * Add `permit_autoloading_before` configuration
 
 ## 0.1.0
