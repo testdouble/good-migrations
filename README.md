@@ -123,3 +123,7 @@ Because this gem works by augmenting the auto-loader, it will not work if your
 Rails environment (development, by default) is configured to eager load your
 application's classes (see:
 [config.eager_load](http://edgeguides.rubyonrails.org/configuring.html#rails-general-configuration)).
+
+For the same reason, if you have initializers or other code which use/load models
+before the migrations, those models will be available in the migrations and will
+not raise when used.
