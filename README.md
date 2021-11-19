@@ -98,6 +98,17 @@ GoodMigrations.config do |config|
   #
   # Accepts parseable time strings as well as `Date` & `Time` objects
   # config.permit_autoloading_before = "20140728132502"
+
+  # Setting `load_error_message` will change error message that is be raised
+  # if a migration attempts to autoload.
+  # The %{attempted_path} format parameter is available to indicate the
+  # path of the file that would have been autoloaded.
+  # The default message is quite exhaustive, but this setting can be useful to
+  # add a some information specific to your application at the end if you use `+=`.
+  #
+  # config.load_error_message = <<~MSG
+  #   A migration tried to load this path: %{attempted_path}
+  # MSG
 end
 ```
 
