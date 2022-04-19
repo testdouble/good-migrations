@@ -10,7 +10,10 @@ module GoodMigrations
 
       loc = caller.detect { |loc| loc.start_with?(migrate_dir_path) }
       return if loc.nil?
-      new(loc.partition(":").first)
+      
+      end_index = loc.index(":", migrate_dir_path.size)
+
+      new(loc[0...end_index])
     end
 
     def associated_time
