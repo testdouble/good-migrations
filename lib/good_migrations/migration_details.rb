@@ -8,12 +8,10 @@ module GoodMigrations
     def self.currently_executing
       migrate_dir_path = Rails.root.join("db/migrate/").to_s
 
-      loc = caller.detect { |loc| loc.start_with?(migrate_dir_path) }
-      return if loc.nil?
-      
-      end_index = loc.index(":", migrate_dir_path.size)
-
-      new(loc[0...end_index])
+      if (loc = caller.detect { |loc| loc.start_with?(migrate_dir_path) })
+        line_number_index = loc.index(":", migrate_dir_path.size)
+        new(loc[0...line_number_index])
+      end
     end
 
     def associated_time
