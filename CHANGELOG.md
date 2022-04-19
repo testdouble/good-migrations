@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.2.1
+
+* Fix Windows paths [#31](https://github.com/testdouble/good-migrations/pull/31)
+  by [@MaxLap](https://github.com/MaxLap)
+
 ## 0.2.0
 
 * Add `permit_autoloading_before` configuration
