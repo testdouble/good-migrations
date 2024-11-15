@@ -15,10 +15,11 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.1.0"
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  spec.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir = "exe"
-  spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.files = `git ls-files -z -- lib CHANGELOG* LICENSE*`.split("\x0")
+  spec.executables = `git ls-files -z -- exe`.split("\x0").map { File.basename _1 }
+  spec.extra_rdoc_files = `git ls-files -z -- example README*`.split("\x0")
   spec.require_paths = ["lib"]
+  spec.bindir = "exe"
 
   spec.add_dependency "railties", ">= 3.1"
   spec.add_dependency "activerecord", ">= 3.1"
