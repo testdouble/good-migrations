@@ -1,7 +1,8 @@
 # CHANGELOG
 
-## Unreleased
+## 0.3.0
 * Minimum supported Ruby version is now 3.1
+* Exclude unnecessary files from the packaged gem
 
 ## 0.2.1
 
