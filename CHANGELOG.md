@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Unreleased
+* Minimum supported Ruby version is now 3.1
+
 ## 0.2.1
 
 * Fix Windows paths [#31](https://github.com/testdouble/good-migrations/pull/31)

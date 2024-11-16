@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "Referencing code in app/ from a database migration risks breaking the migration when your app code changes; this gem prevents that mistake"
   spec.homepage = "https://github.com/testdouble/good-migrations"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.3.0"
+  spec.required_ruby_version = ">= 3.1.0"
   spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
