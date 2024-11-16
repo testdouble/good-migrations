@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo "---> Installing dependencies in example app"
+cd example
+bundle
+cd ..
+
+echo "---> Running tests"
+bundle exec rake
+
+echo "---> Job's done!"
