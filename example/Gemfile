@@ -4,8 +4,8 @@ gem "rails", "~> 6.1"
 
 gem "good_migrations", path: ".."
 
-gem "sqlite3"
+gem "sqlite3", "~> 1.7.3"
 
-gem "zeitwerk", github: "fxn/zeitwerk"
+gem "zeitwerk", "~> 2.6"
 
 gem "bootsnap", require: false
