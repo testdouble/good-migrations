@@ -13,4 +13,7 @@ if File.exist?(gemfile)
     exit!
   end
 end
+# Fix concurrent-ruby removing logger dependency which Rails was transitively
+# depending on.
+require "logger"
 require "bootsnap/setup"
