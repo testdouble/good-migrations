@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.3.1
+* Fix tasks directory missing from bundled gem
+  [#42](https://github.com/testdouble/good-migrations/pull/42) by
+  [@kjlape](https://github.com/kjlape)
+
 ## 0.3.0
 * Minimum supported Ruby version is now 3.1
 * Exclude unnecessary files from the packaged gem
