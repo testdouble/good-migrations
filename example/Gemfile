@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", ENV.fetch("RAILS_VERSION", "~> 6.1")
+gem "rails", ENV.fetch("RAILS_VERSION", "~> 7.2")
 
 gem "good_migrations", path: ".."
 
