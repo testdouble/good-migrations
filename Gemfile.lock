@@ -72,7 +72,7 @@ GEM
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    method_source (1.0.0)
+    method_source (1.1.0)
     mini_portile2 (2.8.9)
     minitest (5.26.2)
     mutex_m (0.3.0)
@@ -86,9 +86,10 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
-    pry (0.14.1)
+    pry (0.16.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
+      reline (>= 0.6.0)
     psych (5.2.6)
       date
       stringio
@@ -117,7 +118,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.3.1)
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
