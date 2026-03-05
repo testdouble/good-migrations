@@ -74,7 +74,7 @@ GEM
       nokogiri (>= 1.12.0)
     method_source (1.0.0)
     mini_portile2 (2.8.9)
-    minitest (5.15.0)
+    minitest (5.26.2)
     mutex_m (0.3.0)
     nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
