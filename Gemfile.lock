@@ -52,7 +52,7 @@ GEM
     builder (3.3.0)
     cgi (0.5.1)
     coderay (1.1.3)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.7)
     connection_pool (2.5.5)
     crass (1.0.6)
     date (3.5.1)
