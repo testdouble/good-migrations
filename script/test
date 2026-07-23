@@ -5,6 +5,7 @@ set -euo pipefail
 echo "---> Installing dependencies in example app"
 cd example
 bundle
+bundle exec rake db:prepare
 cd ..
 
 echo "---> Running tests"
