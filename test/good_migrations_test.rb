@@ -1,6 +1,10 @@
 require "test_helper"
 
 class GoodMigrationsTest < Minitest::Test
+  def setup
+    shell("bin/rake clean")
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::GoodMigrations::VERSION
   end
@@ -47,14 +51,8 @@ class GoodMigrationsTest < Minitest::Test
   private
 
   def shell(command)
-    script = <<-SCRIPT
-      export BUNDLE_GEMFILE="Gemfile"
-      export RAILS_ENV="development"
-      rm -f db/*.sqlite3
-      #{command}
-    SCRIPT
     Bundler.with_unbundled_env do
-      Open3.capture3(script, chdir: "example")
+      Open3.capture3(command, chdir: "example")
     end
   end
 end

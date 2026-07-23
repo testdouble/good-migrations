@@ -2,6 +2,8 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path("../config/application", __FILE__)
-require "rake"
-
 Example::Application.load_tasks
+
+require "rake/clean"
+CLEAN.include("db/*.sqlite3") # clear dbs between unit tests
+CLOBBER.include(Bundler.default_lockfile) # clear lockfile before script/setup
