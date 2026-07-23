@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 
-gem "rails", ENV.fetch("RAILS_VERSION", "~> 7.2")
+rails_version = Gem::Version.new ENV.fetch("RAILS_VERSION", "7.2")
+
+gem "rails", rails_version.approximate_recommendation # ~> major.minor
 
 gem "good_migrations", path: ".."
 
