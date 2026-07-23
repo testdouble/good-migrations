@@ -7,3 +7,5 @@ Example::Application.load_tasks
 require "rake/clean"
 CLEAN.include("db/*.sqlite3") # clear dbs between unit tests
 CLOBBER.include(Bundler.default_lockfile) # clear lockfile before script/setup
+
+Rake::Task["clean"].enhance %w[log:clear tmp:clear]
