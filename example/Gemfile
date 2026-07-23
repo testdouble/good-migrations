@@ -6,11 +6,15 @@ gem "rails", "~> #{rails_version}.0"
 
 gem "good_migrations", path: ".."
 
-gem "sqlite3"
-
 gem "zeitwerk", "~> 2.6"
 
 gem "bootsnap", require: false
+
+if rails_version =~ /^8/
+  gem "sqlite3", "~> 2"
+else
+  gem "sqlite3", "~> 1.7"
+end
 
 if rails_version =~ /^6/
   # activesupport 6.1 needs these but older rails got it from stdlib
