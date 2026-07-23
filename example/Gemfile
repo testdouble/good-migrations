@@ -12,7 +12,9 @@ gem "zeitwerk", "~> 2.6"
 
 gem "bootsnap", require: false
 
-# activesupport needs these but older rails got it from stdlib
-gem "bigdecimal" # since ruby 3.4
-gem "mutex_m" # since ruby 3.4
-gem "benchmark" # since ruby 4.0
+# activesupport 6.1 needs these but older rails got it from stdlib
+if Gem::Requirement.new("~> 6.1") === rails_version
+  gem "bigdecimal" # since ruby 3.4
+  gem "mutex_m" # since ruby 3.4
+  gem "benchmark" # since ruby 4.0
+end
