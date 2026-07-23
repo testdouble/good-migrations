@@ -8,3 +8,6 @@ tmp/**/*
 
 # Not committing the schema as we shouldn't need it
 /db/schema.rb
+
+# allow using bundler binstubs but we don't want to version them
+bin
