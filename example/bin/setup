@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require "fileutils"
+require "bundler"
+
+APP_ROOT = File.expand_path("..", __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  # Rails scaffolded, but modified for abnormal example-app purposes.
+
+  puts "\n== Removing bundler lockfile ==\n#{Bundler.default_lockfile}"
+  system! "rm -f #{Bundler.default_lockfile}"
+
+  puts "== Installing dependencies =="
+  system! "gem install bundler --conservative"
+  system("bundle check") || system!("bundle install")
+  system! "bundle binstubs --all"
+
+  puts "\n== Removing old logs and tempfiles =="
+  system! "bin/rake clean"
+end
