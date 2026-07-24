@@ -6,7 +6,9 @@ gem "rails", rails_version.approximate_recommendation # ~> major.minor
 
 gem "good_migrations", path: ".."
 
-gem "sqlite3", "~> 1.7.3"
+gem "sqlite3", (rails_version < Gem::Version.new("8")) ?
+  "~> 1.7.3" :
+  "~> 2"
 
 gem "zeitwerk", "~> 2.6"
 
