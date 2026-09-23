@@ -9,7 +9,11 @@ end
 
 gem "good_migrations", path: ".."
 
-gem "sqlite3", "~> 1.7.3"
+if ENV["RAILS_VERSION"] == "edge" || rails_version >= Gem::Version.new("8.0")
+  gem "sqlite3", ">= 2.1"
+else
+  gem "sqlite3", "~> 1.7.3"
+end
 
 gem "zeitwerk", "~> 2.6"
 
