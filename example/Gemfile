@@ -12,6 +12,8 @@ gem "good_migrations", path: ".."
 if ENV["RAILS_VERSION"] == "edge" || rails_version >= Gem::Version.new("8.0")
   gem "sqlite3", ">= 2.1"
 else
+  # ActiveRecord < 7.1 pins `gem "sqlite3", "~> 1.4"` in its adapter at
+  # runtime, and sqlite3 2.9 requires Ruby >= 3.2.
   gem "sqlite3", "~> 1.7.3"
 end
 
